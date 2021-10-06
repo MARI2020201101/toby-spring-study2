@@ -1,8 +1,7 @@
 package com.mariworld.spring.serviceabstraction;
 
 import org.junit.Before;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,7 +14,7 @@ public class UserTest {
     @Autowired
     UserDao userDao;
 
-
+    @Test
     public void setUp(){
         userDao.deleteAll();
 
@@ -25,6 +24,7 @@ public class UserTest {
         userDao.add(user1);
         userDao.add(user2);
         userDao.add(user3);
+        assertEquals(3,userDao.getAll().size());
 
     }
 
@@ -39,14 +39,14 @@ public class UserTest {
 
 
 
-    @Test
+ //  @Test
     public void enumTest(){
         User user= userDao.get("kim");
         userDao.getAll().stream().forEach(System.out::println);
 
     }
 
-    @Test
+ //   @Test
     public void updateTest(){
         userDao.deleteAll();
         User user1 = new User("kim","김길동","1234", Level.BASIC,1,0);
@@ -55,5 +55,18 @@ public class UserTest {
         userDao.update(user1);
         assertEquals(userDao.get("kim").getName(),"김민수");
         checkSameUser(userDao.get("kim"),user1);
+    }
+
+  //  @Test
+    public void addTest(){
+        userDao.deleteAll();
+        User user1 = new User("kim","김길동","1234", Level.BASIC,1,0);
+        User user2 = new User("min","민길동","12345678", Level.SILVER,55,10);
+        userDao.add(user1);
+        userDao.add(user2);
+
+        checkSameUser(userDao.get("kim"),user1);
+        checkSameUser(userDao.get("min"),user2);
+
     }
 }

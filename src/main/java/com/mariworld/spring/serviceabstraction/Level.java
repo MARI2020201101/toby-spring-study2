@@ -4,9 +4,13 @@ import lombok.Getter;
 
 @Getter
 public enum Level {
-    BASIC(1),SILVER(2),GOLD(3);
+    BASIC(1)
+    ,SILVER(2)
+    ,GOLD(3);
 
     private final int value;
+
+
     public static Level valueOf(int value){
        switch (value){
            case(1): return BASIC;
