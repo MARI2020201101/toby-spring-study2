@@ -14,4 +14,8 @@ public class User {
     private int login;
     private int recommend;
 
+    public void upgradeLevel(){
+        this.setLevel(level.next());
+    }
+
 }
