@@ -17,6 +17,25 @@ public class UserServiceTest {
     @Autowired
     UserDao userDao;
 
+    static class TestUserService extends UserService{
+
+        public TestUserService(UserDao userDao) {
+            super(userDao);
+        }
+
+        @Override
+        public void upgradeLevels(List<User> users) {
+            for (User user : users) {
+                if(user.getId()=="gang"){
+                    throw new RuntimeException("network error!!!");
+                }
+                else{
+                    user.upgradeLevel();
+                }
+            }
+        }
+    }
+
     @Test
     public void upgradeUserTest(){
         userDao.deleteAll();
@@ -85,4 +104,25 @@ public class UserServiceTest {
         checkLevel(user5, Level.GOLD);
     }
 
+    @Test()
+    public void shouldBeRollback(){
+        userDao.deleteAll();
+
+        User user1 = new User("kim","김길동","1234", Level.BASIC,55,0);
+        User user2 = new User("min","민길동","12345678", Level.SILVER,10,40);
+        User user3 = new User("gang","강길동","123456", Level.GOLD,100,40);
+        User user4 = new User("ni","홍길동","12", Level.BASIC,1,40);
+        User user5 = new User("guu","조길동","123456789", Level.SILVER,55,40);
+        List<User> users = List.of(user1, user2, user3, user4, user5);
+        TestUserService testUserService = new TestUserService(userDao);
+        testUserService.addUsers(users);
+        try{
+            testUserService.upgradeLevels(users);
+            fail("should not be reached here...");
+        }catch (RuntimeException e){
+            checkLevel(user1, Level.BASIC);
+            checkLevel(user2, Level.SILVER);
+        }
+
+    }
 }

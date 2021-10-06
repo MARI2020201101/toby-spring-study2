@@ -8,6 +8,9 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class UserService {
+    public static final int MIN_lOGCOUNT_FOR_SILVER=50;
+    public static final int MIN_RECCOUNT_FOR_GOLD=30;
+
 
     private final UserDao userDao;
 
@@ -29,9 +32,9 @@ public class UserService {
     }
 
     private boolean canUpgrade(User user) {
-        if(user.getLogin()>=50 && user.getLevel()==Level.BASIC)
+        if(user.getLogin()>=MIN_lOGCOUNT_FOR_SILVER && user.getLevel()==Level.BASIC)
             return true;
-        else if(user.getRecommend()>=30 && user.getLevel()==Level.SILVER){
+        else if(user.getRecommend()>=MIN_RECCOUNT_FOR_GOLD && user.getLevel()==Level.SILVER){
             return true;
         }return false;
     }
