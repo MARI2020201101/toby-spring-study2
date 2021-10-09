@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 @RequiredArgsConstructor
 public class UserService {
     public static final int MIN_lOGCOUNT_FOR_SILVER=50;
