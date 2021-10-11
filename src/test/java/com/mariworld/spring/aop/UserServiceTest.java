@@ -8,11 +8,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 public class UserServiceTest {
     @Autowired
-    UserService userService;
+    UserService userServiceTx;
 
     @Test
     public void beanTest(){
-        Assert.assertNotNull(userService);
-        userService.updateLevels();
+        Assert.assertNotNull(userServiceTx);
+        userServiceTx.updateLevels();
     }
 }
