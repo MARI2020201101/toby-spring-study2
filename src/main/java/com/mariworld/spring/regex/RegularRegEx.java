@@ -2,11 +2,10 @@ package com.mariworld.spring.regex;
 
 import java.util.regex.Pattern;
 
-public class TestRegEx {
+public class RegularRegEx {
 
-    private static final Pattern yyyyMMddHHmmss = Pattern.compile("(19|20)\\d{12}");
+    public static boolean isValid(String string){
 
-    private static boolean isValid(String string){
-        return yyyyMMddHHmmss.matcher(string).matches();
+        return string.matches("(19|20)\\d{12}");
     }
 }
