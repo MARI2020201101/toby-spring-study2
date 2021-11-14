@@ -1,11 +1,7 @@
 package com.mariworld.spring.aop;
 
 import com.mariworld.spring.serviceabstraction.User;
-import com.mariworld.spring.serviceabstraction.UserDao;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 public class UserServiceImpl implements UserService{
